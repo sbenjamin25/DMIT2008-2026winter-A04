@@ -4,6 +4,7 @@
 // Note how we don't need to hardcode for specific event types!
 // We can just store keys for an event name, and its subscribers in an array.
 
+// Step 1: a simple pub-sub broker
 const PubSub = {
   _subscribers: {},  // store who is subscribed, and to what event, e.g. :
   // {
@@ -23,5 +24,34 @@ const PubSub = {
     if (this._subscribers[event]) {
       this._subscribers[event].forEach(callback => callback(...data));
     }
+  }
+};
+
+// Step 2: Expenses Object Literal with Methods.
+// We'll be 'borrowing' functionality from the generic PubSub handler in the next step -
+// hence the use of e.g. this.publish(), which we don't have to redefine in this object.
+const expenses = {
+  list: [],
+
+  addExpense(...exp) {
+    this.list.push(...exp);
+    this.publish("update", this.list);
+  },
+
+  filterExpense(input) {
+    const result = this.list.filter(exp => {
+        if(exp.title.toLowerCase().includes(input.toLowerCase()) ||
+           exp.category.toLowerCase().includes(input.toLowerCase()) ||
+           exp.date.toLowerCase().includes(input.toLowerCase()) ||
+           exp.amount.toString().toLowerCase().includes(input.toLowerCase())) {
+            return true;
+        }
+    });
+    this.publish("update", result);
+  },
+
+  clear() {
+    this.list = [];
+    this.publish("update", this.list);
   }
 };
