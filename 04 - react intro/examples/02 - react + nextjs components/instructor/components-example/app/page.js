@@ -11,6 +11,8 @@ export default function Home() {
         <h1>My React App hehe</h1>
         <Hello />
         <NewConcept irrelevantProp="unused because of destructuring" concept="passing props to a React component" />
+        <NewConcept concept="how easy it is to reuse components I've already made" />
+        <NewConcept concept="ask me tomorrow and I'll already have forgotten" />
       </main>
     </div>
   );
