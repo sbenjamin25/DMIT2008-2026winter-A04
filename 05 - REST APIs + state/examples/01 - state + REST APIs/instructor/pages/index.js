@@ -26,6 +26,13 @@ export default function Home() {
   })
 
 
+  const handleClick = () => {
+    setQuote({
+      quote: "I'm (allegedly) starting to enjoy JS, but don't tell anyone",
+      author: "Me, Myself, and I(rene)"
+    })
+  }
+
   return (
     <div>
       <Head>
@@ -72,6 +79,7 @@ export default function Home() {
             >
               <Button
                 variant="contained"
+                onClick={handleClick}
               >
                 Get New Quote
               </Button>
