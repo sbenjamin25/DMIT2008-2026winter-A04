@@ -1,5 +1,5 @@
 // hooks
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 
 // API functions
 import { getRandomQuote } from './api/quotes';
@@ -24,7 +24,7 @@ export default function Home() {
     author: "Author here"
   })
 
-  const handleClick = () => {
+  const loadNewQuote = () => {
     getRandomQuote().then((data)=> {
         setQuoteData({
           quote: data.quote,
@@ -32,6 +32,16 @@ export default function Home() {
         })
       })
   }
+
+  useEffect(
+    // param 1: the callback that should fire,
+    () => {
+      loadNewQuote();
+    },
+
+    // param 2: the dependency array
+    [] // empty depenency array -> effect fires when page loads
+  )
 
   return (
     <div>
@@ -79,7 +89,7 @@ export default function Home() {
             >
               <Button
                 variant="contained"
-                onClick={handleClick}
+                onClick={loadNewQuote}
               >
                 Get New Quote
               </Button>
