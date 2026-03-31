@@ -18,6 +18,7 @@ import NavBar from '@components/NavBar';
 export default function Home() {
 
   const [agenciesData, setAgenciesData] = useState([])
+
   const [isLoading, setIsLoading]       = useState(true)
 
   useEffect(
@@ -29,7 +30,7 @@ export default function Home() {
       getAgencies().then(
         (data) => {
           console.log(data)
-          setAgenciesData(data)
+          setAgenciesData(data.results)
         }
       )
 
@@ -65,15 +66,23 @@ export default function Home() {
             }}
           >
           </Box>
-          {isLoading ? (
-            <Typography variant="p">
-              Loading data...
-            </Typography>
-          ) : (
-            <Typography variant="p">
-              (my data) — data is loaded
-            </Typography>           
-          )
+          {isLoading ? 
+            (
+              <Typography variant="p">
+                Loading data...
+              </Typography>
+            ) : (
+              agenciesData.map((agency)=> {
+                return <AgencyCard
+                  key={agency.id}
+                  id={agency.id}
+                  imageUrl={agency.image_url}
+                  name={agency.name}
+                  abbreviation={agency.abbrev}
+                  description={agency.description}
+                />
+              })         
+            )
           }
 
         </Container>
