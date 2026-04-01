@@ -45,12 +45,40 @@ export default function Agency() {
             <Grid container>
 
               <Grid item xs="2">
+                <img
+                    alt={agencyData.name}
+                    src={agencyData.logo_url}
+                    style={{
+                        width: `120px`
+                    }}
+                />
               </Grid>
 
               <Grid item xs="10">
                 <Typography variant="h3" gutterBottom>
-                  Agency Page for {id}
+                  {`${agencyData.name} (${agencyData.abbrev})`}
                 </Typography>
+              </Grid>
+
+              <Grid item xs="4">
+                <SimpleDetailsCard 
+                    title={'Total Launches'}
+                    description={agencyData.total_launch_count}
+                />
+              </Grid>
+
+              <Grid item xs="4">
+                <SimpleDetailsCard 
+                    title={'Successful Launches'}
+                    description={agencyData.successful_launches}
+                />
+              </Grid>
+
+              <Grid item xs="4">
+                <SimpleDetailsCard 
+                    title={'Successful Landings'}
+                    description={`${agencyData.successful_landings}`}
+                />
               </Grid>
 
             </Grid>
